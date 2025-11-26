@@ -8,7 +8,7 @@ class PhotoManager:
     remainingImages: list[str] = field(default_factory=list)
 
 picPath = os.path.join(os.path.dirname(os.path.dirname(__file__)), "pic")
-cachedPath = os.path.join(os.path.dirname(os.path.dirname(__file__)), "cached.json")
+cachedPath = os.path.join(os.path.dirname(os.path.dirname(__file__)), "cache/cached.json")
 allImages = [f for f in os.listdir(picPath)
           if f.lower().endswith((".jpg", ".jpeg", ".png", ".bmp"))]
 
