@@ -56,3 +56,9 @@ Example 2:
      Sudo python epd_2in9bc_test.py
     
 Note: For epd_1in54_V2_test.py and epd_2in13_V2_test.py, please note that the V2 logo is attached to the back of your screen.
+
+--- Setup ---
+python3 -m venv .venv
+source .venv/bin/activate
+pip install .
+playwright install chromium
