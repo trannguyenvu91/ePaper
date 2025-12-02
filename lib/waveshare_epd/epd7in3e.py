@@ -195,8 +195,8 @@ class EPD:
         # Convert the soruce image to the 7 colors, dithering if needed
         image_temp = image_temp.convert("RGB")
         image_temp = image_temp.point(lambda x: int((x / 255) ** 0.8 * 255))   # gamma
-        image_temp = ImageEnhance.Contrast(image_temp).enhance(1.5)
-        image_temp = ImageEnhance.Sharpness(image_temp).enhance(1.3)
+        image_temp = ImageEnhance.Contrast(image_temp).enhance(1.1)
+        image_temp = ImageEnhance.Sharpness(image_temp).enhance(1.2)
         image_7color = image_temp.quantize(
             palette=pal_image,
             method=Image.FASTOCTREE,
