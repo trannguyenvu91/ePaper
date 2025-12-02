@@ -194,6 +194,12 @@ class EPD:
 
         # Convert the soruce image to the 7 colors, dithering if needed
         image_temp = image_temp.convert("RGB")
+
+        pixels = image_temp.load()
+        for y in range(image_temp.height):
+            for x in range(image_temp.width):
+                pixels[x, y] = self.nearest_color(pixels[x, y])
+
         image_temp = image_temp.point(lambda x: int((x / 255) ** 0.8 * 255))   # gamma
         image_temp = ImageEnhance.Contrast(image_temp).enhance(1.1)
         image_temp = ImageEnhance.Sharpness(image_temp).enhance(1.2)
@@ -213,6 +219,14 @@ class EPD:
             idx += 1
             
         return buf
+
+    def nearest_color(self, pixel):
+        palette_colors = [
+            (0, 0, 0), (255, 255, 255), (255, 255, 0),
+            (255, 0, 0), (0, 0, 255), (0, 255, 0), (255, 128, 0)
+        ]
+        r, g, b = pixel
+        return min(palette_colors, key=lambda c: (c[0] - r) ** 2 + (c[1] - g) ** 2 + (c[2] - b) ** 2)
 
     def display(self, image):
         self.send_command(0x10)
