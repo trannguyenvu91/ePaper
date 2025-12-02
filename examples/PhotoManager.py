@@ -1,6 +1,9 @@
 import os
 import json
 from dataclasses import dataclass, field, asdict
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
 
 @dataclass
 class PhotoManager:
@@ -9,17 +12,21 @@ class PhotoManager:
 
 def getImagePathToDisplay() -> str :
     picPath = os.path.join(os.path.dirname(os.path.dirname(__file__)), "pic")
-    cachedPath = os.path.join(os.path.dirname(os.path.dirname(__file__)), "cache/cached.json")
+    cachedPath = os.path.join(os.path.dirname(os.path.dirname(__file__)), "cache")
+    cachedJson = os.path.join(cachedPath, "cache.json")
     allImages = [f for f in os.listdir(picPath)
                  if f.lower().endswith((".jpg", ".jpeg", ".png", ".bmp"))]
 
     # Ensure file exists
-    if not os.path.exists(cachedPath):
-        with open(cachedPath, "w") as f:
+    if not os.path.exists(cachedJson):
+        logging.info(f"Cache file {cachedJson} does not exist")
+        os.makedirs(cachedPath, exist_ok=True)
+        with open(cachedJson, "w") as f:
             f.write("")  # create empty JSON
+            logging.info(f"Cache file {cachedJson} created")
 
     # Create object
-    with open(cachedPath, "r+") as f:
+    with open(cachedJson, "r+") as f:
         try:
             content = f.read()
             if content:  # only parse if not empty
