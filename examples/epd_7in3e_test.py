@@ -9,29 +9,26 @@ if os.path.exists(libdir):
 
 import logging
 from waveshare_epd import epd7in3e
-import time
 from PIL import Image
+from PhotoManager import getImagePathToDisplay
 
 logging.basicConfig(level=logging.DEBUG)
 
 try:
-    logging.info("epd7in3f Demo")
+    logging.info("1. epd7in3f Demo")
 
     epd = epd7in3e.EPD()   
-    logging.info("init and Clear")
+    logging.info("2. init and Clear")
     epd.init()
     epd.Clear()
 
-    # read bmp file 
-    logging.info("2.read bmp file")
-    Himage = Image.open(os.path.join(picdir, 'test3.bmp'))
+    # read bmp file
+    imageToDisplay = getImagePathToDisplay()
+    logging.info(f"3. read bmp file: {imageToDisplay}")
+    Himage = Image.open(imageToDisplay)
     epd.display(epd.getbuffer(Himage))
-    time.sleep(3)
     
-    logging.info("Clear...")
-    # epd.Clear()
-    
-    logging.info("Goto Sleep...")
+    logging.info("4. Goto Sleep...")
     epd.sleep()
         
 except IOError as e:
