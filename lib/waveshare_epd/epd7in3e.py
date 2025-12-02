@@ -200,7 +200,7 @@ class EPD:
         image_7color = image_temp.quantize(
             palette=pal_image,
             method=Image.FASTOCTREE,
-            dither=Image.NONE
+            dither=Image.FLOYDSTEINBERG
         )
         buf_7color = bytearray(image_7color.tobytes('raw'))
 
