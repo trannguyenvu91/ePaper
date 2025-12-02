@@ -46,12 +46,12 @@ try:
     
     # read bmp file 
     logging.info("2.read bmp file")
-    Himage = Image.open(os.path.join(picdir, '7in3e.bmp'))
+    Himage = Image.open(os.path.join(picdir, 'test.bmp'))
     epd.display(epd.getbuffer(Himage))
     time.sleep(3)
     
     logging.info("Clear...")
-    epd.Clear()
+    # epd.Clear()
     
     logging.info("Goto Sleep...")
     epd.sleep()
